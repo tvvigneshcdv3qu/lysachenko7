@@ -1,4 +1,4 @@
-package com.lysachenko;
+package com.lysachenko.model;
 
 public class Family implements Comparable<Family> {
 

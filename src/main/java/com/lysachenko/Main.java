@@ -1,14 +1,17 @@
 package com.lysachenko;
 
 import com.lysachenko.comparator.ComparatorByLengthNameOfEmblem;
+import com.lysachenko.comparator.ComparatorByTitleReverse;
+import com.lysachenko.model.Family;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        String str = "1,2,3,4,54,5,6,7,8,9,0";
+        String str = "1,2,3,4,4,44,  5     ,5,6,7    ,8,9,0, 0 ,0";
+        replaceDuplicateInString(str);
 
         Map<Integer, Family> familyMap = new TreeMap<>();
         familyMap.put(1, new Family("Ivanovy", 44, "Kings", "1Goweroo!!!"));
@@ -22,34 +25,39 @@ public class Main {
         familyMap.put(9, new Family("Nagorni", 43, "Boyars", "234Gjymnhtbgrfewreooo!!!"));
         familyMap.put(10, new Family("Svetlyi", 15, "Marquises", "654Gowtegfoo!!!"));
 
-        System.out.println("Sort by name:");
+        System.out.println("\n\nSource map:");
+        familyMap.forEach((integer, family) -> System.out.println(integer + " : " + family));
+
+        System.out.println("\nSort by name:");
+        sortAndShowMap(familyMap, Map.Entry.comparingByValue());
+
+        System.out.println("\nSort by title in reverse order:");
+        sortAndShowMap(familyMap, new ComparatorByTitleReverse());
+
+        System.out.println("\nSort by length of emblem name:");
         sortAndShowMap(familyMap, new ComparatorByLengthNameOfEmblem());
-
-        /*List<Map.Entry<Integer, Family>> familyList = sortByFamilyName(familyMap);
-        familyList.forEach(familyEntry -> System.out.println(familyEntry.getKey() + " : " + familyEntry.getValue()));
-
-        System.out.println("\nSort by name of emblem:");
-        familyList.sort(new ComparatorByLengthNameOfEmblem());
-        familyList.forEach(familyEntry -> System.out.println(familyEntry.getKey() + " : " + familyEntry.getValue()));
-
-        System.out.println("\nSort by title:");
-        familyList.sort(new ComparatorByTitle());
-        familyList.forEach(familyEntry -> System.out.println(familyEntry.getKey() + " : " + familyEntry.getValue()));*/
-
     }
 
-    private static void sortAndShowMap(Map<Integer, Family> familyMap, Comparator<Map.Entry<Integer, Family>> comparator) {
+    private static void replaceDuplicateInString(String str) {
+        System.out.println("Source string: " + str);
+        System.out.print("Result string: ");
+
+        Arrays.stream(
+                str
+                        .replaceAll(" ", "")
+                        .split(",")
+        )
+                .map(Integer::parseInt)
+                .collect(Collectors.toSet())
+                .forEach(e -> System.out.print(e + " "));
+    }
+
+    private static void sortAndShowMap(
+            Map<Integer, Family> familyMap,
+            Comparator<Map.Entry<Integer, Family>> comparator
+    ) {
         familyMap.entrySet().stream()
                 .sorted(comparator)
                 .forEach(familyEntry -> System.out.println(familyEntry.getKey() + " : " + familyEntry.getValue()));
     }
-
-    /*public static List<Map.Entry<Integer, Family>> sortByFamilyName(Map<Integer, Family> familyMap) {
-        List<Map.Entry<Integer, Family>> familyList = new ArrayList<>(familyMap.entrySet());
-        familyList.sort(Map.Entry.comparingByValue());
-        familyList.forEach(familyEntry -> {
-            familyMap.put(familyEntry.getKey(), familyEntry.getValue());
-        });
-        return familyList;
-    }*/
 }

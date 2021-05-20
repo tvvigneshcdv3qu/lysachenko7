@@ -1,6 +1,6 @@
 package com.lysachenko.comparator;
 
-import com.lysachenko.Family;
+import com.lysachenko.model.Family;
 
 import java.util.Comparator;
 import java.util.Map;
