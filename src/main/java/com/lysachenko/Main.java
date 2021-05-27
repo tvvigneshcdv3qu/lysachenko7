@@ -47,7 +47,6 @@ public class Main {
                         .replaceAll(" ", "")
                         .split(",")
         )
-                .map(Integer::parseInt)
                 .collect(Collectors.toSet())
                 .forEach(e -> System.out.print(e + " "));
     }
