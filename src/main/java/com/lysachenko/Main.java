@@ -43,11 +43,9 @@ public class Main {
         System.out.print("Result string: ");
 
         Arrays.stream(
-                str
-                        .replaceAll(" ", "")
+                str.replaceAll(" ", "")
                         .split(",")
-        )
-                .collect(Collectors.toSet())
+        ).collect(Collectors.toSet())
                 .forEach(e -> System.out.print(e + " "));
     }
 
