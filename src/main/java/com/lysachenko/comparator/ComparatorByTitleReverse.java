@@ -11,17 +11,14 @@ public class ComparatorByTitleReverse implements Comparator<Map.Entry<Integer, F
     @Override
     public int compare(Map.Entry<Integer, Family> family1, Map.Entry<Integer, Family> family2) {
 
-        if (Objects.equals(family1.getValue().getTitle(), family2.getValue().getTitle())) {
+        String familyTitle1 = family1.getValue().getTitle();
+        String familyTitle2 = family2.getValue().getTitle();
+
+        if (Objects.equals(familyTitle1, familyTitle2)) {
             return 0;
         }
-        if (family1.getValue().getTitle().equals(family2.getValue().getTitle())) {
+        if (familyTitle1.equals(familyTitle2)) {
             return 0;
-        }
-        if (family1.getValue().getTitle() == null) {
-            return -1;
-        }
-        if (family2.getValue().getTitle() == null) {
-            return 1;
         }
 
         return family1.getValue().getTitle().compareTo(family2.getValue().getTitle()) * -1;

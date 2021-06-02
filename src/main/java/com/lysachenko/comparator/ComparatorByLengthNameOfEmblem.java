@@ -11,25 +11,13 @@ public class ComparatorByLengthNameOfEmblem implements Comparator<Map.Entry<Inte
     @Override
     public int compare(Map.Entry<Integer, Family> family1, Map.Entry<Integer, Family> family2) {
 
-        if (Objects.equals(family1.getValue().getNameOfEmblem(), family2.getValue().getNameOfEmblem())) {
-            return 0;
-        }
-        if (family1.getValue().getNameOfEmblem() == null) {
-            return -1;
-        }
-        if (family2.getValue().getNameOfEmblem() == null) {
-            return 1;
-        }
-        if (family1.getValue().getNameOfEmblem().length() > family2.getValue().getNameOfEmblem().length()) {
-            return 1;
-        }
-        if (family1.getValue().getNameOfEmblem().length() < family2.getValue().getNameOfEmblem().length()) {
-            return -1;
-        }
-        if (family1.getValue().getNameOfEmblem().length() == family2.getValue().getNameOfEmblem().length()) {
+        String familyEmblemName1 = family1.getValue().getNameOfEmblem();
+        String familyEmblemName2 = family2.getValue().getNameOfEmblem();
+
+        if (Objects.equals(familyEmblemName1, familyEmblemName2)) {
             return 0;
         }
 
-        return 0;
+        return Integer.compare(familyEmblemName1.length(), familyEmblemName2.length());
     }
 }
